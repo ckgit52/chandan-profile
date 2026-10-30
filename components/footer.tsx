@@ -23,10 +23,12 @@ const Footer = () => {
       />
       <div className="text-ink-secondary dark:text-ink-secondary-dark flex items-center justify-between gap-2 text-xs">
         <p>
-          Built with Next.js by{" "}
+          &copy;{" "}
+          <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
           <span className="text-ink-primary dark:text-ink-primary-dark font-medium">
             {PROFILE.name}
           </span>
+          . Built with Next.js.
         </p>
         <div className="flex items-center gap-2">
           {SOCIAL_LINKS.map((link) => (

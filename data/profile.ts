@@ -1,4 +1,4 @@
-import { STAT_PROPS } from "@/types/types";
+import { FOCUS_PROPS, STAT_PROPS } from "@/types/types";
 
 export const PROFILE = {
   name: "Chandan Kumar",
@@ -24,6 +24,30 @@ export const HERO_WORDS: { text: string; tech: string[] }[] = [
   },
   { text: "NATS JetStream, Kafka", tech: ["NATS JetStream", "Kafka"] },
   { text: "Docker, GitHub Actions", tech: ["Docker", "GitHub Actions"] },
+];
+
+export const FOCUS_AREAS: FOCUS_PROPS[] = [
+  {
+    title: "APIs & microservices",
+    description:
+      "Production-grade REST APIs and services in Rust with Actix-Web and Tokio, backed by PostgreSQL and MongoDB, with authentication, RBAC and request validation built in.",
+    icon: "server",
+    tech: ["Rust", "Actix-Web", "Tokio", "PostgreSQL", "MongoDB"],
+  },
+  {
+    title: "Trading & exchange systems",
+    description:
+      "Matching engines, market makers and a connector framework that puts 50+ exchanges behind one interface, with low-latency WebSocket streaming.",
+    icon: "chart",
+    tech: ["Rust", "Tokio", "WebSockets", "REST APIs"],
+  },
+  {
+    title: "Event-driven pipelines",
+    description:
+      "NATS JetStream, Redis and Kafka pipelines that deliver live data fast and keep a durable audit trail, shipped through CI/CD.",
+    icon: "pipeline",
+    tech: ["NATS JetStream", "Redis", "Kafka", "Docker", "GitHub Actions"],
+  },
 ];
 
 export const STATS: STAT_PROPS[] = [

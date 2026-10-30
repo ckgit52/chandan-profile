@@ -7,6 +7,8 @@ export type BLOG_CARDS_PROPS = {
   index?: number;
   featured?: boolean;
   tags?: string[];
+  /** Estimated minutes to read. */
+  readingTime?: number;
 };
 
 export type WORK_COMPANIES_PROPS = {
@@ -44,6 +46,13 @@ export type PROJECT_PROPS = {
 export type SKILL_GROUP_PROPS = {
   title: string;
   items: string[];
+};
+
+export type FOCUS_PROPS = {
+  title: string;
+  description: string;
+  icon: "server" | "chart" | "pipeline";
+  tech: string[];
 };
 
 export type STAT_PROPS = {

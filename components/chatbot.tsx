@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,
@@ -51,6 +51,7 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const [messages, setMessages] = useState([
     {
@@ -58,6 +59,11 @@ export function Chatbot() {
       content: `Hi! I'm ${FIRST_NAME}'s AI assistant. Ask me anything about their Rust work 👋`,
     },
   ]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [messages, loading, isOpen]);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -84,7 +90,7 @@ export function Chatbot() {
       });
 
       if (!res.ok) {
-        throw new Error("Request failed");
+        throw new Error(res.status === 429 ? "rate-limited" : "Request failed");
       }
 
       const data = await res.json();
@@ -103,7 +109,10 @@ export function Chatbot() {
         ...newMessages,
         {
           role: "assistant",
-          content: "Something went wrong. Please try again.",
+          content:
+            err instanceof Error && err.message === "rate-limited"
+              ? "You're sending messages quickly. Please wait a few minutes and try again."
+              : "Something went wrong. Please try again.",
         },
       ]);
     }
@@ -137,7 +146,12 @@ export function Chatbot() {
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="ghost" onClick={toggleOpen}>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={toggleOpen}
+                    aria-label="Close chat"
+                  >
                     <X animateOnHover className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -148,7 +162,13 @@ export function Chatbot() {
               </Tooltip>
             </div>
 
-            <div className="flex h-80 flex-col gap-4 overflow-y-auto p-4">
+            <div
+              ref={scrollRef}
+              role="log"
+              aria-live="polite"
+              aria-label="Chat messages"
+              className="flex h-80 flex-col gap-4 overflow-y-auto p-4"
+            >
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
@@ -224,6 +244,7 @@ export function Chatbot() {
                 className="flex gap-2"
               >
                 <input
+                  aria-label="Ask a question"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask something..."
@@ -231,7 +252,11 @@ export function Chatbot() {
                 />
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button size="icon" disabled={!input.trim() || loading}>
+                    <Button
+                      size="icon"
+                      disabled={!input.trim() || loading}
+                      aria-label="Send message"
+                    >
                       <Sent animateOnHover className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
@@ -249,6 +274,8 @@ export function Chatbot() {
       <Tooltip>
         <TooltipTrigger asChild>
           <motion.button
+            aria-label={isOpen ? "Close chat" : "Open chat"}
+            aria-expanded={isOpen}
             onClick={toggleOpen}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

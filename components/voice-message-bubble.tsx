@@ -71,6 +71,13 @@ export default function VoiceMessageBubble({
     else speak();
   };
 
+  React.useEffect(() => {
+    return () => {
+      window.speechSynthesis?.cancel();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
   const [barCount, setBarCount] = React.useState(90);
 
   React.useEffect(() => {
@@ -103,7 +110,11 @@ export default function VoiceMessageBubble({
     >
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button onClick={togglePlay} className="rounded-full p-2.5!">
+          <Button
+            onClick={togglePlay}
+            aria-label={isPlaying ? "Pause audio" : "Play audio"}
+            className="rounded-full p-2.5!"
+          >
             {isPlaying ? <Pause /> : <Play />}
           </Button>
         </TooltipTrigger>
@@ -123,7 +134,9 @@ export default function VoiceMessageBubble({
               key={i}
               className={cn(
                 "w-0.5 rounded-full transition-all duration-150",
-                isActive ? "bg-black dark:bg-white" : "bg-neutral-300 dark:bg-neutral-600",
+                isActive
+                  ? "bg-black dark:bg-white"
+                  : "bg-neutral-300 dark:bg-neutral-600",
               )}
               style={{
                 height: `${height}px`,

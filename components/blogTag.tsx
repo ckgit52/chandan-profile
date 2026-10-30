@@ -16,7 +16,7 @@ export const BlogTag = ({
         delay: index * 0.1,
         duration: 0.3,
       }}
-      className="text-ink-secondary dark:text-ink-secondary-dark cursor-pointer rounded bg-neutral-100 px-2 py-1 text-xs leading-tight transition-colors duration-200 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700/60 hover:dark:text-neutral-100"
+      className="dark:text-ink-secondary-dark cursor-pointer rounded bg-neutral-100 px-2 py-1 text-xs leading-tight text-neutral-600 transition-colors duration-200 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700/60 hover:dark:text-neutral-100"
     >
       {children}
     </motion.div>

@@ -7,6 +7,7 @@ const BlogCard = ({
   title,
   description,
   date,
+  readingTime,
   featured = false,
 }: BLOG_CARDS_PROPS) => {
   return (
@@ -20,6 +21,9 @@ const BlogCard = ({
         </div>
         <div className="flex-1">
           <Para className="text-xs sm:text-sm">{date}</Para>
+          {readingTime && (
+            <Para className="mt-1 text-xs">{readingTime} min read</Para>
+          )}
         </div>
       </div>
     </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import * as opentype from "opentype.js";
 import { cn } from "@/lib/utils";
 
@@ -51,8 +51,7 @@ async function loadFont(urls: string[]): Promise<opentype.Font> {
         cachedFont = font;
         return font;
       }
-    } catch {
-    }
+    } catch {}
   }
 
   throw new Error("Font could not be loaded from any path");

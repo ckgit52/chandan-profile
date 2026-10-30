@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { FloatingDock, FloatingDockItem } from "@/components/ui/floating-dock";
@@ -13,6 +14,12 @@ import { FileText } from "./animate-ui/icons/file-text";
 export default function FloatingDockDemo() {
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(true);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   useMotionValueEvent(scrollY, "change", (current) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -37,6 +44,7 @@ export default function FloatingDockDemo() {
         />
       ),
       href: "/",
+      active: isActive("/"),
     },
     {
       title: "Projects",
@@ -47,6 +55,7 @@ export default function FloatingDockDemo() {
         />
       ),
       href: "/projects",
+      active: isActive("/projects"),
     },
     {
       title: "About",
@@ -57,6 +66,7 @@ export default function FloatingDockDemo() {
         />
       ),
       href: "/about",
+      active: isActive("/about"),
     },
     {
       title: "Blogs",
@@ -67,6 +77,7 @@ export default function FloatingDockDemo() {
         />
       ),
       href: "/blog",
+      active: isActive("/blog"),
     },
     {
       title: "Contact",
@@ -77,6 +88,7 @@ export default function FloatingDockDemo() {
         />
       ),
       href: "/contact",
+      active: isActive("/contact"),
     },
 
     {

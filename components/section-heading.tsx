@@ -14,8 +14,9 @@ export const SectionHeading = ({
       initial={{ opacity: 0, y: 20, filter: "blur(12px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ duration: 0.3 }}
+      viewport={{ once: true }}
       className={cn(
-        "relative w-fit max-w-lg bg-neutral-100 px-2 py-1 text-sm leading-none font-normal text-neutral-500 md:text-base dark:bg-neutral-800 dark:text-neutral-300",
+        "relative w-fit max-w-lg bg-neutral-100 px-2 py-1 text-sm leading-none font-normal text-neutral-600 md:text-base dark:bg-neutral-800 dark:text-neutral-300",
         className,
       )}
     >

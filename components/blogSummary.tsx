@@ -21,7 +21,9 @@ export default function BlogSummary({ content }: { content: string }) {
         });
 
         const data = await res.json();
-        setSummary(data.summary);
+        setSummary(
+          res.ok && typeof data.summary === "string" ? data.summary : "",
+        );
       } catch (err) {
         console.error(err);
       } finally {
@@ -31,6 +33,10 @@ export default function BlogSummary({ content }: { content: string }) {
 
     generateSummary();
   }, [content]);
+
+  // No key configured or the request failed: show nothing rather than a
+  // loader that never finishes.
+  if (!loading && !summary) return null;
 
   return (
     <div className="mt-6 mb-2 rounded-2xl bg-[hsla(0,0%,100%,1)] bg-[radial-gradient(at_88%_40%,hsla(0,0%,100%,1)_0px,transparent_85%),radial-gradient(at_49%_30%,hsla(0,0%,100%,1)_0px,transparent_85%),radial-gradient(at_14%_26%,hsla(0,0%,100%,1)_0px,transparent_85%),radial-gradient(at_0%_64%,hsla(263,100%,90%,1)_0px,transparent_85%),radial-gradient(at_41%_94%,hsla(284,100%,95%,1)_0px,transparent_85%),radial-gradient(at_100%_99%,hsla(306,100%,90%,1)_0px,transparent_85%)] p-6 shadow-[inset_0_-10px_20px_rgba(0,0,0,0.08)] dark:bg-[hsla(240,15%,9%,1)] dark:bg-[radial-gradient(at_88%_40%,hsla(240,15%,9%,1)_0px,transparent_85%),radial-gradient(at_49%_30%,hsla(240,15%,9%,1)_0px,transparent_85%),radial-gradient(at_14%_26%,hsla(240,15%,9%,1)_0px,transparent_85%),radial-gradient(at_0%_64%,hsla(263,93%,56%,1)_0px,transparent_85%),radial-gradient(at_41%_94%,hsla(284,100%,84%,1)_0px,transparent_85%),radial-gradient(at_100%_99%,hsla(306,100%,57%,1)_0px,transparent_85%)] dark:shadow-[inset_0_-16px_24px_rgba(255,255,255,0.25)]">

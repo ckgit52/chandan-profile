@@ -27,7 +27,7 @@ const EducationSection = () => {
               {item.courses.map((course) => (
                 <span
                   key={course}
-                  className="text-ink-secondary dark:text-ink-secondary-dark rounded-md bg-neutral-100 px-2 py-1 text-xs dark:bg-neutral-800"
+                  className="dark:text-ink-secondary-dark rounded-md bg-neutral-100 px-2 py-1 text-xs text-neutral-600 dark:bg-neutral-800"
                 >
                   {course}
                 </span>

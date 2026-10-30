@@ -249,8 +249,8 @@ export const NavbarLogo = ({ className }: { className?: string }) => {
       <Image
         src={logo}
         alt={PROFILE.name}
-        width={240}
-        height={240}
+        width={120}
+        height={120}
         priority
         className={cn("rounded-full", className)}
       />

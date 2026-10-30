@@ -16,6 +16,7 @@ export function CallToAction() {
             <motion.h2
               initial={{ opacity: 0, y: 20, filter: "blur(12px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.3 }}
               className="text-ink-primary dark:text-ink-primary-dark mb-2 text-lg font-medium md:text-xl"
             >
@@ -24,6 +25,7 @@ export function CallToAction() {
             <motion.p
               initial={{ opacity: 0, y: 20, filter: "blur(12px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.4 }}
               className="text-ink-secondary dark:text-ink-secondary-dark text-sm"
             >
@@ -33,6 +35,7 @@ export function CallToAction() {
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(12px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <Button>

@@ -11,6 +11,7 @@ export const BlogGridCard = ({
   title,
   description,
   date,
+  readingTime,
   index = 0,
 }: BLOG_CARDS_PROPS) => {
   return (
@@ -18,6 +19,7 @@ export const BlogGridCard = ({
       <motion.div
         initial={{ opacity: 0, y: 20, filter: "blur(12px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true }}
         transition={{
           delay: index * 0.1,
           duration: 0.3,
@@ -43,6 +45,7 @@ export const BlogGridCard = ({
         </div>
         <div className="relative z-10 mb-2 px-5 text-xs text-neutral-600 md:px-5 dark:text-neutral-400">
           {date}
+          {readingTime ? ` · ${readingTime} min read` : ""}
         </div>
 
         <Para className="relative z-10 max-w-xs px-5 text-sm md:px-5">

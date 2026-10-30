@@ -18,6 +18,8 @@ export type FloatingDockItem = {
   href?: string;
   onClick?: () => void;
   separator?: boolean;
+  /** Marks the dock item for the page currently shown. */
+  active?: boolean;
 };
 
 function useIsMobile(breakpoint = 768): boolean {
@@ -85,6 +87,7 @@ const FloatingDockDesktop = ({
             icon={item.icon}
             href={item.href}
             onClick={item.onClick}
+            active={item.active}
             isMobile={isMobile}
           />
         );
@@ -99,6 +102,7 @@ function IconContainer({
   icon,
   href,
   onClick,
+  active = false,
   isMobile = false,
 }: {
   mouseX: MotionValue;
@@ -106,6 +110,7 @@ function IconContainer({
   icon?: React.ReactNode;
   href?: string;
   onClick?: () => void;
+  active?: boolean;
   isMobile?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -193,6 +198,12 @@ function IconContainer({
           </motion.div>
         )}
       </AnimatePresence>
+      {active && (
+        <span
+          aria-hidden
+          className="absolute -bottom-2 left-1/2 size-1 -translate-x-1/2 rounded-full bg-orange-500"
+        />
+      )}
       <motion.div
         style={{
           width: isMobile ? 20 : widthIcon,
@@ -213,6 +224,7 @@ function IconContainer({
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {})}
         aria-label={title}
+        aria-current={active ? "page" : undefined}
       >
         {motionCircle}
       </Link>

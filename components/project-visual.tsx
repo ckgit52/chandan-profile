@@ -31,14 +31,14 @@ export const ProjectVisual = ({
         }}
       />
 
-      <div className="relative transition-transform duration-700 ease-in-out group-hover:-translate-y-37.5">
+      <div className="[@media(hover:none)]:animate-panel-swap relative transition-transform duration-700 ease-in-out group-hover:-translate-y-37.5 motion-reduce:animate-none">
         <div className="flex h-37.5 flex-col items-center justify-center">
           {flow.map((node, i) => {
             const last = i === flow.length - 1;
             return (
               <Fragment key={node}>
                 <div
-                  className="rounded-md border px-2 py-1 font-mono text-[10px] leading-3.5 font-medium whitespace-nowrap text-neutral-100"
+                  className="rounded-md border px-2 py-1 font-mono text-[11px] leading-4 font-medium whitespace-nowrap text-neutral-100"
                   style={{
                     borderColor: `${accent}${last ? "cc" : "55"}`,
                     backgroundColor: `${accent}${last ? "33" : "14"}`,
@@ -78,7 +78,7 @@ export const ProjectVisual = ({
               >
                 {metric.value}
               </span>
-              <span className="mt-1 text-[9px] tracking-wider text-neutral-400 uppercase">
+              <span className="mt-1 text-[10px] tracking-wider text-neutral-400 uppercase">
                 {metric.label}
               </span>
             </div>

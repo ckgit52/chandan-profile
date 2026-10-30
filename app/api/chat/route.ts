@@ -1,6 +1,14 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { PROFILE } from "@/data/profile";
 import { SYSTEM_PROMPT, getPredefinedAnswer } from "@/lib/chat-context";
+import { clientIp, createRateLimiter } from "@/lib/rate-limit";
+
+const MAX_MESSAGE_CHARS = 500;
+const MAX_SUMMARY_CHARS = 20_000;
+
+const chatLimiter = createRateLimiter(20, 10 * 60_000);
+const summaryLimiter = createRateLimiter(30, 10 * 60_000);
 
 let openaiClient: OpenAI | null = null;
 
@@ -14,11 +22,33 @@ function getOpenAIClient(): OpenAI {
   return openaiClient;
 }
 
+const FIRST_NAME = PROFILE.name.split(" ")[0];
+const NO_KEY_REPLY = `I can answer questions about ${FIRST_NAME}'s projects, tech stack, experience, education and how to get in touch. For anything else, email ${PROFILE.email}.`;
+
 export async function POST(req: Request) {
   try {
     const { messages, mode, content } = await req.json();
+    const ip = clientIp(req);
+    const hasKey = Boolean(process.env.OPENROUTER_API_KEY);
 
     if (mode === "summary") {
+      // Summaries are an optional extra: stay quiet until a key is configured.
+      if (!hasKey) return NextResponse.json({ summary: null });
+
+      if (
+        typeof content !== "string" ||
+        !content.trim() ||
+        content.length > MAX_SUMMARY_CHARS
+      ) {
+        return NextResponse.json({ error: "Invalid content" }, { status: 400 });
+      }
+      if (!summaryLimiter(ip)) {
+        return NextResponse.json(
+          { error: "Too many requests" },
+          { status: 429 },
+        );
+      }
+
       const completion = await getOpenAIClient().chat.completions.create({
         model: "openai/gpt-3.5-turbo",
         messages: [
@@ -39,14 +69,20 @@ export async function POST(req: Request) {
       });
     }
 
-    if (!messages || messages.length === 0) {
+    if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
         { error: "No messages provided" },
         { status: 400 },
       );
     }
 
-    const userMessage = messages[messages.length - 1].content;
+    const userMessage = messages[messages.length - 1]?.content;
+    if (typeof userMessage !== "string" || !userMessage.trim()) {
+      return NextResponse.json({ error: "Invalid message" }, { status: 400 });
+    }
+    if (userMessage.length > MAX_MESSAGE_CHARS) {
+      return NextResponse.json({ error: "Message too long" }, { status: 400 });
+    }
 
     const predefined = getPredefinedAnswer(userMessage);
 
@@ -56,12 +92,29 @@ export async function POST(req: Request) {
       });
     }
 
-    // The client controls this array, so only accept plain chat turns.
+    if (!hasKey) {
+      return NextResponse.json({ reply: { content: NO_KEY_REPLY } });
+    }
+
+    if (!chatLimiter(ip)) {
+      return NextResponse.json(
+        { error: "Too many messages. Please try again in a few minutes." },
+        { status: 429 },
+      );
+    }
+
+    // The client controls this array, so only accept short plain chat turns.
     const chatTurns = messages
       .filter(
-        (m: { role?: string }) => m.role === "user" || m.role === "assistant",
+        (m: { role?: string; content?: unknown }) =>
+          (m.role === "user" || m.role === "assistant") &&
+          typeof m.content === "string",
       )
-      .slice(-10);
+      .slice(-10)
+      .map((m: { role: string; content: string }) => ({
+        role: m.role as "user" | "assistant",
+        content: m.content.slice(0, MAX_MESSAGE_CHARS),
+      }));
 
     const completion = await getOpenAIClient().chat.completions.create({
       model: "openai/gpt-3.5-turbo",
@@ -81,10 +134,15 @@ export async function POST(req: Request) {
       },
     });
   } catch (err: unknown) {
-    const errorMessage =
-      err instanceof Error ? err.message : "Something went wrong";
-    console.error("ERROR:", errorMessage);
+    // Keep upstream error details in the server log, not in the response.
+    console.error(
+      "Chat route error:",
+      err instanceof Error ? err.message : err,
+    );
 
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { error: "The assistant is unavailable right now." },
+      { status: 502 },
+    );
   }
 }

@@ -8,8 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -72,6 +74,33 @@
     100% {
       top: 100%;
       opacity: 0;
+    }
+  }
+  --animate-reveal: reveal 0.6s ease-out both;
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+  }
+  --animate-panel-swap: panel-swap 9s ease-in-out infinite;
+  @keyframes panel-swap {
+    0%,
+    42% {
+      translate: 0 0;
+    }
+    50%,
+    92% {
+      translate: 0 -150px;
+    }
+    100% {
+      translate: 0 0;
     }
   }
   --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
@@ -203,12 +232,65 @@
   @apply my-4 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-xs leading-relaxed md:text-sm dark:border-neutral-800 dark:bg-neutral-900;
 }
 .blog-page-block pre code {
-  @apply bg-transparent p-0 font-mono text-[0.9em] font-normal text-neutral-800 dark:text-neutral-200;
+  @apply bg-transparent p-0 font-mono text-[1em] font-normal text-neutral-800 dark:text-neutral-200;
 }
 .blog-page-block :not(pre) > code {
-  @apply rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200;
+  @apply rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200;
 }
 .blog-page-block code::before,
 .blog-page-block code::after {
   content: none;
+}
+
+/* Syntax highlighting (highlight.js classes, generated at build time) */
+.blog-page-block pre {
+  --code-keyword: #c2410c;
+  --code-string: #15803d;
+  --code-number: #7c3aed;
+  --code-comment: #737373;
+  --code-function: #1d4ed8;
+  --code-type: #0e7490;
+  --code-meta: #be185d;
+  --code-symbol: #b45309;
+}
+.dark .blog-page-block pre {
+  --code-keyword: #fb923c;
+  --code-string: #86efac;
+  --code-number: #c4b5fd;
+  --code-comment: #a3a3a3;
+  --code-function: #93c5fd;
+  --code-type: #67e8f9;
+  --code-meta: #f9a8d4;
+  --code-symbol: #fcd34d;
+}
+.blog-page-block .hljs-keyword,
+.blog-page-block .hljs-selector-tag {
+  color: var(--code-keyword);
+}
+.blog-page-block .hljs-string,
+.blog-page-block .hljs-char {
+  color: var(--code-string);
+}
+.blog-page-block .hljs-number,
+.blog-page-block .hljs-literal {
+  color: var(--code-number);
+}
+.blog-page-block .hljs-comment {
+  color: var(--code-comment);
+  font-style: italic;
+}
+.blog-page-block .hljs-title.function_ {
+  color: var(--code-function);
+}
+.blog-page-block .hljs-title.class_,
+.blog-page-block .hljs-type,
+.blog-page-block .hljs-built_in {
+  color: var(--code-type);
+}
+.blog-page-block .hljs-meta {
+  color: var(--code-meta);
+}
+.blog-page-block .hljs-symbol,
+.blog-page-block .hljs-variable.language_ {
+  color: var(--code-symbol);
 }

@@ -17,7 +17,7 @@ const SkillsSection = () => {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="text-ink-secondary dark:text-ink-secondary-dark inline-flex items-center gap-1.5 rounded-md bg-neutral-100 px-2 py-1 text-xs transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700/60 dark:hover:text-neutral-100"
+                  className="dark:text-ink-secondary-dark inline-flex items-center gap-1.5 rounded-md bg-neutral-100 px-2 py-1 text-xs text-neutral-600 transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700/60 dark:hover:text-neutral-100"
                 >
                   {techIcon(item)}
                   {item}

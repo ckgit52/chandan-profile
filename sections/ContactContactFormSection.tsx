@@ -1,4 +1,6 @@
-﻿import { useForm } from "react-hook-form";
+"use client";
+
+import { useForm } from "react-hook-form";
 import { CircleAlert, LoaderIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Block } from "@/components/block";
