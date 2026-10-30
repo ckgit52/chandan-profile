@@ -1,0 +1,64 @@
+# Chandan Kumar — Rust Backend Developer
+
+Personal portfolio built with Next.js 16, React 19, Tailwind CSS v4 and Motion.
+It presents my work on Rust backends: REST APIs, matching engines, exchange
+connectors and real-time trading infrastructure.
+
+## Editing the content
+
+All site copy lives in plain TypeScript files under `data/`, so nothing needs
+to change in JSX:
+
+| File                       | What it controls                                      |
+| -------------------------- | ----------------------------------------------------- |
+| `data/profile.ts`          | Name, role, email, intro text, hero tags, stat tiles  |
+| `data/projects.ts`         | Project cards, highlights, architecture flow, metrics |
+| `data/work-experiences.ts` | Experience entries                                    |
+| `data/education.ts`        | Education                                             |
+| `data/skills.ts`           | Skill groups on the About page                        |
+| `data/socials.tsx`         | GitHub / LinkedIn / LeetCode / email links            |
+| `posts/*.md`               | Blog posts (front matter + Markdown)                  |
+
+Logos come from `components/tech-icons.tsx`; add a technology there once and
+every list that mentions it picks up the icon. The AI chatbot builds its system
+prompt from the same data files (`lib/chat-context.ts`), so it stays in sync.
+
+### Assets to swap
+
+- `public/logo.jpg` — profile photo (currently a placeholder)
+- `public/chandan-kumar-resume.pdf` — the file behind the **Download CV** button
+
+## Getting started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Environment variables
+
+Create a `.env` file in the project root. It is git-ignored, so keep real
+values out of commits.
+
+```bash
+# chatbot open questions and blog AI summaries
+OPENROUTER_API_KEY=
+# contact form: Gmail address that sends and receives messages
+EMAIL_USER=
+# Gmail app password for EMAIL_USER
+EMAIL_PASS=
+```
+
+Without them the site still runs: canned chatbot answers work, but open-ended
+chat, blog summaries and the contact form return errors.
+
+## Scripts
+
+| Command         | Description                |
+| --------------- | -------------------------- |
+| `npm run dev`   | Start the dev server       |
+| `npm run build` | Production build           |
+| `npm run start` | Serve the production build |
+| `npm run lint`  | Lint with ESLint           |
