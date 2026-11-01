@@ -34,6 +34,7 @@ About ${PROFILE.name}:
 - Experience: ${jobs}
 - Education: ${school}
 - Contact: ${PROFILE.email}, or the contact form on this site
+- Profiles: LinkedIn ${PROFILE.linkedin}, GitHub ${PROFILE.github}, LeetCode ${PROFILE.leetcode}
 
 Projects:
 ${projectLines}
@@ -54,7 +55,7 @@ const answer = {
   stack: `${FIRST_NAME} works mainly in Rust with ${SKILL_GROUPS[1].items.join(", ")}, plus ${SKILL_GROUPS[2].items.join(", ")} for data and messaging.`,
   experience: `${FIRST_NAME} has been a ${WORK_COMPANIES[0].role} since 2023 at ${WORK_COMPANIES[0].companyName}, building production REST APIs, microservices and trading infrastructure.`,
   education: `${EDUCATION[0].degree} from ${EDUCATION[0].institution} (${EDUCATION[0].duration}), CGPA ${EDUCATION[0].cgpa}.`,
-  contact: `You can reach ${FIRST_NAME} at ${PROFILE.email} or through the contact form on this site.`,
+  contact: `You can reach ${FIRST_NAME} at ${PROFILE.email} or through the contact form on this site. Profiles: LinkedIn (${PROFILE.linkedin}), GitHub (${PROFILE.github}) and LeetCode (${PROFILE.leetcode}).`,
   greeting: `Hi! I'm ${FIRST_NAME}'s AI assistant. Ask me about projects, tech stack or experience.`,
   thanks: `You're welcome! Let me know if you'd like to know more about ${FIRST_NAME}'s work.`,
 };
@@ -63,7 +64,8 @@ const answer = {
 const PREDEFINED: { pattern: RegExp; reply: string }[] = [
   { pattern: /\b(thanks|thank you)\b/i, reply: answer.thanks },
   {
-    pattern: /\b(contact|email|reach|hire|hiring|available|availability)\b/i,
+    pattern:
+      /\b(contact|email|reach|hire|hiring|available|availability|github|leetcode|linkedin)\b/i,
     reply: answer.contact,
   },
   {

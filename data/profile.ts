@@ -4,6 +4,9 @@ export const PROFILE = {
   name: "Chandan Kumar",
   role: "Rust Backend Developer",
   email: "chandan52chd1@gmail.com",
+  github: "https://github.com/ckgit52",
+  linkedin: "https://www.linkedin.com/in/channdannn/",
+  leetcode: "https://leetcode.com/u/chandan_ku/",
   resumeUrl: "/chandan-kumar-resume.pdf",
   siteDescription:
     "Portfolio of Chandan Kumar, a Rust backend developer building high-performance REST APIs, matching engines and real-time trading infrastructure with Actix-Web, Tokio, PostgreSQL, Kafka and NATS.",
