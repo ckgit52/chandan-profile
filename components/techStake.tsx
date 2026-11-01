@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { forwardRef, useRef } from "react";
 import { AnimatedBeam } from "./ui/animated-beam";
 import { techIcon } from "./tech-icons";
-import logo from "@/public/logo.jpg";
+import logo from "@/public/logo.png";
 import { PROFILE } from "@/data/profile";
 
 import {

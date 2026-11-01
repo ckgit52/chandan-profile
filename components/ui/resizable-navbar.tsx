@@ -9,7 +9,7 @@ import {
 } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.jpg";
+import logo from "@/public/logo.png";
 import { PROFILE } from "@/data/profile";
 
 import React, { useRef, useState } from "react";

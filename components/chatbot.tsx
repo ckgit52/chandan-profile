@@ -133,7 +133,7 @@ export function Chatbot() {
             <div className="flex items-center justify-between border-b p-4">
               <div className="flex items-center gap-2 md:gap-3">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src="/logo.jpg" />
+                  <AvatarImage src="/logo.png" />
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
                 <div>
@@ -185,7 +185,7 @@ export function Chatbot() {
                       </AvatarFallback>
                     ) : (
                       <>
-                        <AvatarImage src="/logo.jpg" />
+                        <AvatarImage src="/logo.png" />
                         <AvatarFallback className="text-xs md:text-sm">
                           AI
                         </AvatarFallback>

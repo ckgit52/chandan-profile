@@ -9,15 +9,15 @@ connectors and real-time trading infrastructure.
 All site copy lives in plain TypeScript files under `data/`, so nothing needs
 to change in JSX:
 
-| File                       | What it controls                                               |
-| -------------------------- | -------------------------------------------------------------- |
-| `data/profile.ts`          | Name, role, email, intro, hero tags, focus areas, stats        |
-| `data/projects.ts`         | Project cards, highlights, architecture flow, metrics          |
-| `data/work-experiences.ts` | Experience entries                                             |
-| `data/education.ts`        | Education                                                      |
-| `data/skills.ts`           | Skill groups on the About page                                 |
-| `data/socials.tsx`         | GitHub / LinkedIn / LeetCode / email links                     |
-| `posts/*.md`               | Blog posts (front matter + Markdown, Rust code is highlighted) |
+| File                       | What it controls                                                                |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| `data/profile.ts`          | Name, role, email, GitHub / LeetCode URLs, intro, hero tags, focus areas, stats |
+| `data/projects.ts`         | Project cards, highlights, architecture flow, metrics                           |
+| `data/work-experiences.ts` | Experience entries                                                              |
+| `data/education.ts`        | Education                                                                       |
+| `data/skills.ts`           | Skill groups on the About page                                                  |
+| `data/socials.tsx`         | Footer and hero social icons (URLs come from `profile.ts`)                      |
+| `posts/*.md`               | Blog posts (front matter + Markdown, Rust code is highlighted)                  |
 
 Logos come from `components/tech-icons.tsx`; add a technology there once and
 every list that mentions it picks up the icon. The AI chatbot builds its system
@@ -25,7 +25,7 @@ prompt from the same data files (`lib/chat-context.ts`), so it stays in sync.
 
 ### Assets to swap
 
-- `public/logo.jpg` — profile photo (currently a placeholder)
+- `public/logo.png` — profile photo (square, 512px; used by the hero, the About page and the chatbot)
 - `public/chandan-kumar-resume.pdf` — the file behind the **Download CV** button
 
 ## Getting started
