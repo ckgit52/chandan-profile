@@ -51,9 +51,10 @@ export const ProjectCard = ({
             />
             <div className="flex flex-1 flex-col gap-3 px-1 pb-1">
               <div>
+                {/* Darkened on light backgrounds (the raw accents are 1.8-3.9:1 on white). */}
                 <span
-                  className="text-[10px] font-medium tracking-wider uppercase"
-                  style={{ color: accent }}
+                  className="text-[10px] font-medium tracking-wider text-[color:color-mix(in_oklab,var(--accent)_70%,black)] uppercase dark:text-[color:var(--accent)]"
+                  style={{ "--accent": accent } as React.CSSProperties}
                 >
                   {domain}
                 </span>
