@@ -11,13 +11,28 @@ export type BLOG_CARDS_PROPS = {
   readingTime?: number;
 };
 
+/** `month` is 1-12; leave it out when only the year is known. */
+export type MONTH_YEAR = { year: number; month?: number };
+
 export type WORK_COMPANIES_PROPS = {
   companyName: string;
-  companyLogo: string;
+  /** Square brand mark; falls back to `initials` when missing. */
+  companyLogo?: string;
+  initials: string;
   role: string;
-  duration: string;
+  employmentType?: string;
+  location?: string;
+  start: MONTH_YEAR;
+  /** `null` means the role is current. */
+  end: MONTH_YEAR | null;
+  summary: string;
   bullets: string[];
+  /** Technologies, shown as logos (names must exist in components/tech-icons). */
   techStack: string[];
+  /** Other skills, shown as text chips. */
+  skills?: string[];
+  /** Titles of projects (data/projects.ts) built in this role. */
+  projects?: string[];
 };
 
 export type EDUCATION_PROPS = {

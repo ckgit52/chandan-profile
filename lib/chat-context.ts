@@ -3,6 +3,7 @@ import { PROJECTS_DATA } from "@/data/projects";
 import { WORK_COMPANIES } from "@/data/work-experiences";
 import { SKILL_GROUPS } from "@/data/skills";
 import { EDUCATION } from "@/data/education";
+import { dateRange, formatMonthYear } from "@/lib/experience";
 
 const FIRST_NAME = PROFILE.name.split(" ")[0];
 
@@ -15,8 +16,13 @@ const skillLines = SKILL_GROUPS.map(
 ).join("\n");
 
 const jobs = WORK_COMPANIES.map(
-  (w) => `${w.role} at ${w.companyName} (${w.duration})`,
-).join("; ");
+  (w) =>
+    `  - ${w.role} at ${w.companyName} (${dateRange(w)}): ${w.summary}${
+      w.projects?.length ? ` Projects there: ${w.projects.join(", ")}.` : ""
+    }`,
+).join("\n");
+
+const [currentJob, ...earlierJobs] = WORK_COMPANIES;
 
 const school = EDUCATION.map(
   (e) => `${e.degree}, ${e.institution}, ${e.duration}, CGPA ${e.cgpa}`,
@@ -31,7 +37,8 @@ You are ${FIRST_NAME}'s AI assistant on ${PROFILE.name}'s portfolio website.
 
 About ${PROFILE.name}:
 - ${PROFILE.role}. ${PROFILE.about}
-- Experience: ${jobs}
+- Experience:
+${jobs}
 - Education: ${school}
 - Contact: ${PROFILE.email}, or the contact form on this site
 - Profiles: LinkedIn ${PROFILE.linkedin}, GitHub ${PROFILE.github}, LeetCode ${PROFILE.leetcode}
@@ -53,7 +60,7 @@ const answer = {
   who: `${PROFILE.name} is a ${PROFILE.role}. ${PROFILE.about}`,
   projects: `${FIRST_NAME} has built ${PROJECTS_DATA.map((p) => p.title).join(", ")}. Check the Projects page for the architecture behind each one.`,
   stack: `${FIRST_NAME} works mainly in Rust with ${SKILL_GROUPS[1].items.join(", ")}, plus ${SKILL_GROUPS[2].items.join(", ")} for data and messaging.`,
-  experience: `${FIRST_NAME} has been a ${WORK_COMPANIES[0].role} since 2023 at ${WORK_COMPANIES[0].companyName}, building production REST APIs, microservices and trading infrastructure.`,
+  experience: `${FIRST_NAME} is a ${currentJob.role} at ${currentJob.companyName} since ${formatMonthYear(currentJob.start)}: ${currentJob.summary} Before that: ${earlierJobs.map((w) => `${w.role} at ${w.companyName} (${dateRange(w)})`).join("; ")}.`,
   education: `${EDUCATION[0].degree} from ${EDUCATION[0].institution} (${EDUCATION[0].duration}), CGPA ${EDUCATION[0].cgpa}.`,
   contact: `You can reach ${FIRST_NAME} at ${PROFILE.email} or through the contact form on this site. Profiles: LinkedIn (${PROFILE.linkedin}), GitHub (${PROFILE.github}) and LeetCode (${PROFILE.leetcode}).`,
   greeting: `Hi! I'm ${FIRST_NAME}'s AI assistant. Ask me about projects, tech stack or experience.`,
