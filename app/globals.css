@@ -294,3 +294,37 @@
 .blog-page-block .hljs-variable.language_ {
   color: var(--code-symbol);
 }
+
+/* Static stand-in for the animated Aurora: paints with the first frame, then
+   fades out as the WebGL canvas (which starts after load) fades in. */
+.aurora-fallback {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 90% at 12% 0%,
+      rgb(255 106 0 / 0.85),
+      rgb(255 106 0 / 0) 70%
+    ),
+    radial-gradient(
+      45% 80% at 50% 0%,
+      rgb(255 179 71 / 0.8),
+      rgb(255 179 71 / 0) 70%
+    ),
+    radial-gradient(
+      55% 90% at 92% 0%,
+      rgb(123 47 247 / 0.75),
+      rgb(123 47 247 / 0) 70%
+    );
+  mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  transition: opacity 2.4s ease;
+}
+.aurora-fallback[data-ready="true"] {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-fallback {
+    transition: none;
+  }
+}

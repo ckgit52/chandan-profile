@@ -7,14 +7,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import { Signature } from "./ui/signature";
+import { LazySignature } from "./lazy-signature";
 import { PROFILE } from "@/data/profile";
 import { SOCIAL_LINKS } from "@/data/socials";
 
 const Footer = () => {
   return (
     <Block>
-      <Signature
+      <LazySignature
         text={PROFILE.name}
         fontSize={15}
         duration={7}

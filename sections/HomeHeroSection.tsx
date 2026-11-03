@@ -73,12 +73,13 @@ const HomeHeroSection = () => {
               </NativeMagnetic>
             </Link>
             <NativeMagnetic className="w-full sm:w-fit">
-              <Link href={PROFILE.resumeUrl} download={true}>
+              {/* A plain anchor: next/link would prefetch the whole PDF on load. */}
+              <a href={PROFILE.resumeUrl} download>
                 <Button variant={"outline"} className="w-full">
                   Download CV
                   <Download01 animateOnHover />
                 </Button>
-              </Link>
+              </a>
             </NativeMagnetic>
           </div>
         </div>

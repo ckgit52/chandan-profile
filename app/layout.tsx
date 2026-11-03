@@ -8,7 +8,7 @@ import { Chatbot } from "@/components/chatbot";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingDockDemo from "@/components/floating-dock-demo";
 import HomeHeroSection from "@/sections/HomeHeroSection";
-import Aurora from "@/components/Aurora";
+import Aurora from "@/components/deferred-aurora";
 import { PROFILE } from "@/data/profile";
 import { SITE_URL } from "@/lib/site";
 import { MotionProvider } from "@/components/motion-provider";
