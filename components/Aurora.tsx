@@ -508,7 +508,9 @@ const Aurora = ({
       gl.deleteProgram(program.program);
       gl.deleteBuffer(buffer);
       gl.deleteVertexArray(vao);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      // Don't call loseContext() here: React dev mode (StrictMode) re-runs this effect on the
+      // same canvas, and getContext() would hand back the dead context (blank canvas, sad-face
+      // icon). The browser releases the context together with the canvas.
     };
   }, []);
 
