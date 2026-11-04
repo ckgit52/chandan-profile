@@ -9,9 +9,11 @@ import { WORK_COMPANIES_PROPS } from "@/types/types";
 const CompanyMark = ({
   logo,
   initials,
+  background = "light",
 }: {
   logo?: string;
   initials: string;
+  background?: "light" | "dark";
 }) =>
   logo ? (
     <Image
@@ -19,7 +21,12 @@ const CompanyMark = ({
       alt=""
       width={44}
       height={44}
-      className="size-11 shrink-0 rounded-xl border border-neutral-200 bg-white object-contain p-1.5 dark:border-neutral-800"
+      className={cn(
+        "size-11 shrink-0 rounded-xl border object-contain p-1.5",
+        background === "dark"
+          ? "border-neutral-800 bg-neutral-950"
+          : "border-neutral-200 bg-white dark:border-neutral-800",
+      )}
     />
   ) : (
     <span
@@ -34,6 +41,7 @@ const CompanyMark = ({
 const WorkCard = ({
   companyName,
   companyLogo,
+  logoBackground,
   initials,
   role,
   employmentType,
@@ -60,7 +68,11 @@ const WorkCard = ({
       />
 
       <div className="flex items-start gap-3">
-        <CompanyMark logo={companyLogo} initials={initials} />
+        <CompanyMark
+          logo={companyLogo}
+          initials={initials}
+          background={logoBackground}
+        />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <h3 className="text-ink-primary dark:text-ink-primary-dark text-base leading-6 font-semibold tracking-tight">

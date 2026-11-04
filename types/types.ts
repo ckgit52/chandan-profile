@@ -18,6 +18,8 @@ export type WORK_COMPANIES_PROPS = {
   companyName: string;
   /** Square brand mark; falls back to `initials` when missing. */
   companyLogo?: string;
+  /** Tile behind the logo; use "dark" for marks designed for dark backgrounds. */
+  logoBackground?: "light" | "dark";
   initials: string;
   role: string;
   employmentType?: string;

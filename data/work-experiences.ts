@@ -36,6 +36,8 @@ export const WORK_COMPANIES: WORK_COMPANIES_PROPS[] = [
   },
   {
     companyName: "Webmob Software Solutions",
+    companyLogo: "/companies/webmob-mark.png",
+    logoBackground: "dark",
     initials: "WM",
     role: "Rust Developer",
     employmentType: "Full-time",
