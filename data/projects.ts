@@ -88,6 +88,35 @@ export const PROJECTS_DATA: PROJECT_PROPS[] = [
     ],
   },
   {
+    slug: "repoveil",
+    title: "RepoVeil",
+    domain: "Developer security tooling",
+    description:
+      "A Rust clipboard guard that catches secrets as you copy them and swaps in a safe placeholder before they reach ChatGPT, Cursor or Copilot.",
+    highlights: [
+      "Three-layer detector in a single 3.4 MB Rust binary: 41 vendor-signature rules, key-name context matching and entropy heuristics for secrets with no known format.",
+      "Twelve categories (cloud, source control, payment, AI service, database, private key and more) so the alert says what to rotate, with redact, clear and warn modes and strict, balanced and paranoid sensitivity.",
+      "Redaction swaps only the secret and keeps the surrounding text readable, and overlapping findings are merged so half a secret is never left behind.",
+      "Local-only by design: it checks the clipboard about twice a second, makes no network requests and serves its helper API on 127.0.0.1 only. Alerts name the type of secret, never the secret.",
+      "Optional second line of defence for text typed straight into a prompt: a ChatGPT browser extension (with a userscript alternative), a Cursor/VS Code extension and a local proxy that check prompts against the local daemon.",
+      "Landing page in plain HTML, CSS and JavaScript with no build step or dependencies; its live demo shows the engine's real output for 12 samples and a verify script re-checks them against the running engine. 53 unit tests cover the detector layers, scanner and server.",
+    ],
+    techStack: ["Rust", "TypeScript", "JavaScript", "Python"],
+    accent: "#f43f5e",
+    flow: [
+      "Clipboard copy",
+      "3-layer detector",
+      "Redact / clear / warn",
+      "Safe paste",
+    ],
+    metrics: [
+      { value: "41", label: "signature rules" },
+      { value: "3", label: "detector layers" },
+      { value: "12", label: "categories" },
+      { value: "0", label: "network calls" },
+    ],
+  },
+  {
     slug: "m24-sniper-bot",
     title: "M24 Sniper Trading Bot",
     domain: "Real-time trading",

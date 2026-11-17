@@ -10,8 +10,8 @@ const HomeProjectsSection = () => {
   return (
     <Block>
       <SectionHeading className="mb-6">Systems I&apos;ve built</SectionHeading>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
-        {PROJECTS_DATA.slice(0, 3).map((project, index) => (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-4">
+        {PROJECTS_DATA.slice(0, 4).map((project, index) => (
           <ProjectCard key={project.slug} index={index} project={project} />
         ))}
       </div>
@@ -22,6 +22,7 @@ const HomeProjectsSection = () => {
             <ImagesBadge
               hoverImageSize={{ width: 80, height: 50 }}
               hoverTranslateY={-60}
+              hoverRotation={10}
               text="View all Projects"
               images={PROJECTS_DATA.map(
                 (project) => `/projects/${project.slug}.webp`,
