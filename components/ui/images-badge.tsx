@@ -17,6 +17,8 @@ interface ImagesBadgeProps {
   hoverTranslateY?: number;
   hoverSpread?: number;
   hoverRotation?: number;
+  /** How many images fan out of the folder. */
+  maxImages?: number;
 }
 
 export function ImagesBadge({
@@ -31,10 +33,11 @@ export function ImagesBadge({
   hoverTranslateY = -35,
   hoverSpread = 20,
   hoverRotation = 15,
+  maxImages = 5,
 }: ImagesBadgeProps) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const displayImages = images.slice(0, 3);
+  const displayImages = images.slice(0, maxImages);
 
   const tabWidth = folderSize.width * 0.375;
   const tabHeight = folderSize.height * 0.25;
@@ -75,28 +78,16 @@ export function ImagesBadge({
         {displayImages.map((image, index) => {
           const totalImages = displayImages.length;
 
-          const baseRotation =
-            totalImages === 1
-              ? 0
-              : totalImages === 2
-                ? (index - 0.5) * hoverRotation
-                : (index - 1) * hoverRotation;
+          // Fan the images around the middle one (same result as before for 1-3).
+          const fromCenter = index - (totalImages - 1) / 2;
+
+          const baseRotation = fromCenter * hoverRotation;
 
           const hoverY = hoverTranslateY - (totalImages - 1 - index) * 3;
-          const hoverX =
-            totalImages === 1
-              ? 0
-              : totalImages === 2
-                ? (index - 0.5) * hoverSpread
-                : (index - 1) * hoverSpread;
+          const hoverX = fromCenter * hoverSpread;
 
           const teaseY = -4 - (totalImages - 1 - index) * 1;
-          const teaseRotation =
-            totalImages === 1
-              ? 0
-              : totalImages === 2
-                ? (index - 0.5) * 3
-                : (index - 1) * 3;
+          const teaseRotation = fromCenter * 3;
 
           return (
             <motion.div
